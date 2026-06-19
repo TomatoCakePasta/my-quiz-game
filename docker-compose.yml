@@ -17,7 +17,7 @@ services:
     # ホットリロード
     # ホストのファイルを更新したらコンテナ内も即座に更新される
     volumes:
-      - .frontend:/app
+      - ./frontend:/app
 
   # FastAPIのコンテナ
   backend:
