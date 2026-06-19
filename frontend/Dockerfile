@@ -4,13 +4,12 @@ FROM node:22
 # コマンドを実行する作業ディレクトリを作成
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json ./
 
 # イメージのビルド時に実行するシェルコマンド
 # イメージにソフトを入れたり、セットアップの手順を実行する
 
-# RUN npm install
-RUN npm ci
+RUN npm install
 
 # ホスト(ローカル)ファイルやディレクトリをDockerイメージにコピー
 # ローカルで作成したソースコードや設定ファイルをDockerイメージにコピーして使用
@@ -19,7 +18,7 @@ RUN npm ci
 COPY . .
 
 # コンテナのポートを公開
-EXPOSE 5173
+EXPOSE 3000
 
 # Dockerコンテナ実行時にデフォルトで実行するコマンド
 # npm run dev -- --host

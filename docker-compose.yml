@@ -12,12 +12,13 @@ services:
     # HOST:CONTAINER
     # Mac localhost:5173
     ports:
-      - "5173:5173"
+      - "3000:3000"
     # ホスト側の「./frontend」とコンテナ側の「/app」を同期
     # ホットリロード
     # ホストのファイルを更新したらコンテナ内も即座に更新される
     volumes:
       - ./frontend:/app
+      - /app/node_modules
 
   # FastAPIのコンテナ
   backend:
