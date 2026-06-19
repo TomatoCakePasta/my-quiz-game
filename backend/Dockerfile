@@ -1,14 +1,15 @@
 # FROM [イメージ] [タグ(バージョン)]
-FROM node:22
+FROM python:3.13
 
 # コマンドを実行する作業ディレクトリを作成
 WORKDIR /app
 
-COPY pakcage*.json ./
+# ファイルをコピー「/app/requirements.txt」へ配置
+COPY requirements.txt .
 
-# イメージのビルド時に実行するシェルコマンド
-# イメージにソフトを入れたり、セットアップの手順を実行する
-RUN npm install
+# イメージ作成時に実行
+# ライブラリのインストール
+RUN pip install --no-cache-dir -r requirements.txt
 
 # ホスト(ローカル)ファイルやディレクトリをDockerイメージにコピー
 # ローカルで作成したソースコードや設定ファイルをDockerイメージにコピーして使用
@@ -16,9 +17,8 @@ RUN npm install
 # COPY <ホスト側のカレントディレクトリ> <コンテナのWORKDIR>
 COPY . .
 
-# コンテナのポートを公開
-EXPOSE 5172
+EXPOSE 8000
 
 # Dockerコンテナ実行時にデフォルトで実行するコマンド
-# npm run dev -- --host
-CMD ["npm", "run", "dev", "--", "--host"]
+# uvicorn main:app --host 0.0.0.0 --port 8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
