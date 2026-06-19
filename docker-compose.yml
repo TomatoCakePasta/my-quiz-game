@@ -1,0 +1,65 @@
+services:
+
+  # 3つのコンテナを起動する
+  # frontend > backend > postgres
+
+  # Vue.js + Vuetifyのコンテナ
+  frontend:
+    # Dockerイメージを作る場所を指定
+    # frontend/Dockerfileを探してビルド
+    build:
+      context: ./frontend
+    # HOST:CONTAINER
+    # Mac localhost:5173
+    ports:
+      - "5173:5173"
+    # ホスト側の「./frontend」とコンテナ側の「/app」を同期
+    # ホットリロード
+    # ホストのファイルを更新したらコンテナ内も即座に更新される
+    volumes:
+      - .frontend:/app
+
+  # FastAPIのコンテナ
+  backend:
+    # backend/Dockerfileを探してイメージを作成
+    build:
+      context: ./backend
+    # http://localhost:8000へアクセス可能
+    ports:
+      - "8000:8000"
+    # ホスト側の「./backend」とコンテナ側の「/app」を同期
+    volumes:
+      - ./backend:/app
+    #先にpostgresを起動してね
+    depends_on:
+      - postgres
+
+  # PostgreSQLコンテナ
+  postgres:
+    # Docker Hubから postgres version 16を取得
+    image: postgres:16
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: appdb
+    # Macから以下へ接続可能
+    # psql, pgAdmin, DBeaver
+    # 接続先
+    # Host: localhost
+    # Port: 5432
+    # User: appuser
+    # Password: password
+    # Database: appdb
+    ports:
+      - "5432:5432"
+    # PostgreSQLのデータ保存場所
+    # Container /var/lib/postgreslql/dataへ永続化
+    # コンテナを削除しても「docker compose down」のみならデータは残る
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+# 名前付きボリューム定義
+# 以下が使用可能になる
+# - postgres_data:/var/lib/postgres/data
+volumes:
+  postgres_data:
