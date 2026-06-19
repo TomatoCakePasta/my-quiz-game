@@ -8,7 +8,9 @@ COPY package*.json ./
 
 # イメージのビルド時に実行するシェルコマンド
 # イメージにソフトを入れたり、セットアップの手順を実行する
-RUN npm install
+
+# RUN npm install
+RUN npm ci
 
 # ホスト(ローカル)ファイルやディレクトリをDockerイメージにコピー
 # ローカルで作成したソースコードや設定ファイルをDockerイメージにコピーして使用
