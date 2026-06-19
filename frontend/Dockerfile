@@ -17,7 +17,7 @@ RUN npm install
 COPY . .
 
 # コンテナのポートを公開
-EXPOSE 5172
+EXPOSE 5173
 
 # Dockerコンテナ実行時にデフォルトで実行するコマンド
 # npm run dev -- --host
