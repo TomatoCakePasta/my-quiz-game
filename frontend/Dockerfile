@@ -4,7 +4,7 @@ FROM node:22
 # コマンドを実行する作業ディレクトリを作成
 WORKDIR /app
 
-COPY pakcage*.json ./
+COPY package*.json ./
 
 # イメージのビルド時に実行するシェルコマンド
 # イメージにソフトを入れたり、セットアップの手順を実行する
