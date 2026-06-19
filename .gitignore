@@ -1,16 +1,18 @@
 config/*
 secret/*
 
-# Environment
-.env
-.env.*
-
 # Python
 .venv/
 venv/
 __pycache__/
 *.pyc
+*.py[cod]
 .pytest_cache/
+
+# Test
+.pytest_cache/
+.coverage
+htmlcov/
 
 # Logs
 *.log
@@ -54,9 +56,6 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Testing
-coverage/
-
 # Temporary files
 *.tmp
 *.temp
@@ -74,3 +73,4 @@ docker-compose.override.yml
 # Local database files
 *.sqlite
 *.db
+
