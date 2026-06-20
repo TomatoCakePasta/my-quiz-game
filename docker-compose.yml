@@ -59,6 +59,19 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  # pgAdminコンテナ
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5000:80"
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
 # 名前付きボリューム定義
 # 以下が使用可能になる
 # - postgres_data:/var/lib/postgres/data
