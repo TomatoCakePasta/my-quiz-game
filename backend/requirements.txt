@@ -1,2 +1,9 @@
 fastapi
 uvicorn[standard]
+
+# test run library
+pytest
+# async function test
+pytest-asyncio
+# FastAPI API test
+httpx
